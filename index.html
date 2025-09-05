@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>LOKA Land Calculator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+        <link href="css/searchPanes.dataTables.css" rel="stylesheet" type="text/css"/>
+        <link href="css/select.dataTables.css" rel="stylesheet" type="text/css"/>
+        <link href="css/datatables.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/scroller.dataTables.css" rel="stylesheet" type="text/css"/>
+
+
+        <script src="js/vfs_fonts.js" type="text/javascript"></script>
+        <script src="js/datatables.js" type="text/javascript"></script>
+        <script src="js/Constants.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/moment.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/tools.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="topDiv"><input id="inputLands" type="text" placeholder="Put your Lands here separated with empty space"></div>
+        <div id="datProf"><div id="dateId">
+                <div id="datesId">Date</div>
+                <input id="datefrom" type="date" value=""/>
+                <input type="button" id="goButton" value="➤"/>
+                <input id="dateto" type="date" value=""/>
+                <input type="button" id="dateButton" value="GO"/>
+            </div>
+        </div>
+
+        <table id="lokaDatatable" class="display nowrap" cellspacing="0" style="width:100%; margin-bottom:2rem;"></table>
+        <div id="popupMessage" style="display:none"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById('inputLands').value = "";
+                setDates("datefrom", "dateto");
+                let fromDate, toDate;
+                let setLands = setLandsToInputFromLocal("inputLands");
+                if (setLands) {
+                    lands = getLocal('lands').split(" ").filter(Boolean);
+                    fromDate = document.getElementById('datefrom').value;
+                    toDate = document.getElementById('dateto').value;
+                    drawLands(fromDate, toDate, lands);
+                }
+
+                $(document).on('click', '#dateButton', function () {
+                    fromDate = document.getElementById('datefrom').value;
+                    toDate = document.getElementById('dateto').value;
+                    let comparison = compareDates(fromDate, toDate);
+                    if (comparison === null) {
+                        popupMessage('Invalid dates', 5);
+                    } else {
+                        let fcompare = convertMiliseconds(comparison, 'd');
+                        if (fcompare >= 0 && fcompare <= 31) {
+                            let lands = getLandsFromInput("inputLands");
+                            if (lands !== null) {
+                                createLocal("lands", getLandsToString(lands));
+                                drawLands(fromDate, toDate, lands);
+                            } else {
+                                document.getElementById('inputLands').value = "";
+                                popupMessage('Please input valid lands with owners separated with space to the input field.', 5);
+                            }
+                        } else {
+                            popupMessage('The period of time cannot be greater than 31 days', 5);
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
