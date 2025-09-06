@@ -2213,6 +2213,9 @@ div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dataTables_
 div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dataTables_wrapper div.dataTables_filter {
   display: none;
 }
+div.dt-search{
+    min-width: 35%;
+}
 div.dtsp-panesContainer div.dtsp-title {
   float: left;
   padding: 10px 0;
