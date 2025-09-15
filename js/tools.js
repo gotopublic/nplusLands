@@ -234,16 +234,6 @@ drawLandsDatatable = function (fromDate, toDate, lands) {
                         "bAutoHeight": true,
                         "bProcessing": true
                     });
-//                    document.getElementsByClassName('topBar')[0].insertAdjacentHTML('beforeend',
-//                            '<div id="datProf">\n\
-//                                    <div id="dateId">\n\
-//                                    <input id="datefrom" type="date" value="' + currentDate + '"/>\n\
-//                                    <input type="button" id="goButton" value="➤"/>\n\
-//                                    <input id="dateto" type="date" value="' + currentDate + '"/>\n\
-//                                    <input type="button" id="dateButton" value="GO"/>\n\
-//                                    </div>\n\
-//                                    </div>\n\
-//                                    </div>');
                 }
                 count++;
             }
@@ -363,20 +353,6 @@ isObject = function (val) {
     return val instanceof Object && val.constructor === Object;
 };
 
-isEmpty = function (data) {
-    if (data === null || typeof data === 'undefined') {
-        return true;
-    } else {
-        if (isString(data)) {
-            return data.toString().length === 0 || data.toString().toLowerCase() === 'null' ? true : false;
-        } else if (Array.isArray(data)) {
-            return data.length === 0;
-        } else if (isObject(data)) {
-            return Object.entries(data).length === 0;
-        }
-    }
-    return false;
-};
 compareDates = function (fromDate, toDate) {
     let from = new Date(fromDate);
     let to = new Date(toDate);
@@ -444,8 +420,6 @@ popupMessage = function (message, seconds) {
     $(document).on('click', '#closeMessagePopUp', function (e) {
         e.preventDefault();
         document.getElementById('popupMessage').style.display = "none";
-        //$('#popupMessage').hide();
-//            $('#popupMessage').fadeOut(100);
     });
 };
 
@@ -457,35 +431,6 @@ sortByKey = function (array, key) {
     });
 };
 
-isObject = function (val) {
-    return val instanceof Object && val.constructor === Object;
-};
-
-isString = function (val) {
-    try {
-        return typeof val === 'string' || val instanceof String ? true : false;
-    } catch (Exception) {
-        return false;
-    }
-    return false;
-}
-;
-
-isEmpty = function (data) {
-    if (data === null || typeof data === 'undefined') {
-        return true;
-    } else {
-        if (isString(data)) {
-            return data.toString().length === 0 || data.toString().toLowerCase() === 'null' ? true : false;
-        } else if (Array.isArray(data)) {
-            return data.length === 0;
-        } else if (isObject(data)) {
-            return Object.entries(data).length === 0;
-        }
-    }
-    return false;
-}
-;
 isNumeric = function (value) {
     return /^-?\d+$/.test(value);
 };
